@@ -1,27 +1,30 @@
-const argv = require("yargs").argv;
+const date = new Date().toISOString();
+console.log(date);
+console.log(`Welcome to HELL!!!!`);
+// const argv = require("yargs").argv;
 
-// TODO: рефакторить
-function invokeAction({ action, id, name, email, phone }) {
-  switch (action) {
-    case "list":
-      // ...
-      break;
+// // TODO: рефакторить
+// function invokeAction({ action, id, name, email, phone }) {
+//   switch (action) {
+//     case "list":
+//       // ...
+//       break;
 
-    case "get":
-      // ... id
-      break;
+//     case "get":
+//       // ... id
+//       break;
 
-    case "add":
-      // ... name email phone
-      break;
+//     case "add":
+//       // ... name email phone
+//       break;
 
-    case "remove":
-      // ... id
-      break;
+//     case "remove":
+//       // ... id
+//       break;
 
-    default:
-      console.warn("\x1B[31m Unknown action type!");
-  }
-}
+//     default:
+//       console.warn("\x1B[31m Unknown action type!");
+//   }
+// }
 
-invokeAction(argv);
+// invokeAction(argv);
