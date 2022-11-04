@@ -1,6 +1,6 @@
 const date = new Date().toISOString();
 console.log(date);
-console.log(`Welcome to HELL!!!!`);
+console.log(`Welcome Highway to HELL!!!!`);
 // const argv = require("yargs").argv;
 
 // // TODO: рефакторить
