@@ -1,6 +1,6 @@
-const date = new Date().toISOString();
-console.log(date);
-console.log(`Welcome Highway to HELL!!!!`);
+const contacts = require("./db/contacts.json");
+const contactsNames = contacts.map((contact) => contact.name);
+console.log(contactsNames);
 // const argv = require("yargs").argv;
 
 // // TODO: рефакторить
