@@ -11,7 +11,7 @@ async function invokeAction({ action, id, name, email, phone }) {
       break;
 
     case "get":
-      const contact = await contacts.getContactById(id);
+      const contact = await contacts.getContactById(`${id}`);
       if (!contact) {
         throw new Error(`Contact with id: ${id} not found in this contacts`);
       }
@@ -26,7 +26,7 @@ async function invokeAction({ action, id, name, email, phone }) {
       break;
 
     case "remove":
-      const deletedContact = await contacts.removeContact(id);
+      const deletedContact = await contacts.removeContact(`${id}`);
       console.log(deletedContact);
 
       break;

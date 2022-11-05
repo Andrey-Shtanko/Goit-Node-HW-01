@@ -53,7 +53,7 @@ async function addContact(name, email, phone) {
       id: `${id}`,
       name,
       email,
-      phone,
+      phone: `${phone}`,
     };
     const newContacts = [...contacts, newContact];
     await fs.writeFile(contactsPath, JSON.stringify(newContacts));
