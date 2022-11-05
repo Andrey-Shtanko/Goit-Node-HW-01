@@ -1,30 +1,36 @@
-const contacts = require("./db/contacts.json");
-const contactsNames = contacts.map((contact) => contact.name);
-console.log(contactsNames);
-// const argv = require("yargs").argv;
+const contacts = require("./contacts");
 
-// // TODO: рефакторить
-// function invokeAction({ action, id, name, email, phone }) {
-//   switch (action) {
-//     case "list":
-//       // ...
-//       break;
+// contacts.listContacts();
+// contacts.addContact("andrew", "andrew@gmail.com", "321-654-987");
+const argv = require("yargs").argv;
 
-//     case "get":
-//       // ... id
-//       break;
+// TODO: рефакторить
+async function invokeAction({ action, id, name, email, phone }) {
+  switch (action) {
+    case "list":
+      const contactsList = await contacts.listContacts();
+      console.log(contactsList);
+      // ...
+      break;
 
-//     case "add":
-//       // ... name email phone
-//       break;
+    case "get":
+      const contact = await contacts.getContactById(id);
+      console.log(contact);
+      // ... id
+      break;
 
-//     case "remove":
-//       // ... id
-//       break;
+    case "add":
+      // ... name email phone
+      break;
 
-//     default:
-//       console.warn("\x1B[31m Unknown action type!");
-//   }
-// }
+    case "remove":
+      // ... id
+      break;
 
+    default:
+      console.warn("\x1B[31m Unknown action type!");
+  }
+}
+// invokeAction({ action: "list" });
+invokeAction({ action: "get", id: "3" });
 // invokeAction(argv);
