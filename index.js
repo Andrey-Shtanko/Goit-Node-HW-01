@@ -1,30 +1,34 @@
 const contacts = require("./contacts");
 
-// contacts.listContacts();
-// contacts.addContact("andrew", "andrew@gmail.com", "321-654-987");
 const argv = require("yargs").argv;
 
-// TODO: рефакторить
 async function invokeAction({ action, id, name, email, phone }) {
   switch (action) {
     case "list":
       const contactsList = await contacts.listContacts();
-      console.log(contactsList);
-      // ...
+      console.table(contactsList);
+
       break;
 
     case "get":
       const contact = await contacts.getContactById(id);
+      if (!contact) {
+        throw new Error(`Contact with id: ${id} not found in this contacts`);
+      }
       console.log(contact);
-      // ... id
+
       break;
 
     case "add":
-      // ... name email phone
+      const newContact = await contacts.addContact(name, email, phone);
+      console.log(newContact);
+
       break;
 
     case "remove":
-      // ... id
+      const deletedContact = await contacts.removeContact(id);
+      console.log(deletedContact);
+
       break;
 
     default:
@@ -32,5 +36,12 @@ async function invokeAction({ action, id, name, email, phone }) {
   }
 }
 // invokeAction({ action: "list" });
-invokeAction({ action: "get", id: "3" });
-// invokeAction(argv);
+// invokeAction({ action: "remove", id: "13" });
+// invokeAction({ action: "get", id: "10" });
+invokeAction(argv);
+// invokeAction({
+//   action: "add",
+//   name: "Andrew",
+//   email: "andrew@gmail.com",
+//   phone: "123-456-789",
+// });

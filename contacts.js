@@ -3,7 +3,6 @@ const path = require("path");
 
 const contactsPath = path.normalize("./db/contacts.json");
 
-// TODO: задокументировать каждую функцию
 async function listContacts() {
   try {
     const response = await fs.readFile(contactsPath);
@@ -12,48 +11,58 @@ async function listContacts() {
   } catch (error) {
     console.log(error);
   }
-
-  // .then((contacts) => console.log(contacts))
-  // .catch((error) => console.log(error));
-  // ...твой код
 }
 
 async function getContactById(contactId) {
   try {
     const contacts = await listContacts();
     const findedContact = contacts.find((contact) => contact.id === contactId);
+    if (!findedContact) {
+      return null;
+    }
     return findedContact;
   } catch (error) {
     console.log(error);
   }
-  // ...твой код
 }
 
-function removeContact(contactId) {
-  // ...твой код
+async function removeContact(contactId) {
+  try {
+    const contacts = await listContacts();
+    const deletedContactIndex = contacts.findIndex(
+      (contact) => contact.id === contactId
+    );
+
+    if (deletedContactIndex === -1) {
+      return null;
+    }
+    const deletedContact = contacts[deletedContactIndex];
+
+    contacts.splice(deletedContactIndex, 1);
+
+    await fs.writeFile(contactsPath, JSON.stringify(contacts));
+    return deletedContact;
+  } catch (error) {
+    console.log(error);
+  }
 }
 
-function addContact(name, email, phone) {
-  const contact = {
-    name,
-    email,
-    phone,
-  };
-  // fs.readFile(contactsPath, "utf-8")
-  //   .then((contacts) => {
-  //     const newContacts = [...JSON.parse(contacts), contact];
-  //     console.log(newContacts);
-  //     fs.writeFile(contactsPath, JSON.stringify(newContacts), (error) =>
-  //       console.log(error)
-  //     )
-  //     .catch((err) => console.log(err));
-  //   })
-  //   .catch((error) => console.log(error));
-
-  // fs.writeFile(contactsPath, contact, (error) => console.log(error))
-  //   .then((data) => console.log(data))
-  //   .catch((err) => console.log(err));
-  // ...твой кодs
+async function addContact(name, email, phone) {
+  try {
+    const contacts = await listContacts();
+    const id = contacts.length + 1;
+    const newContact = {
+      id: `${id}`,
+      name,
+      email,
+      phone,
+    };
+    const newContacts = [...contacts, newContact];
+    await fs.writeFile(contactsPath, JSON.stringify(newContacts));
+    return newContact;
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 module.exports = {
